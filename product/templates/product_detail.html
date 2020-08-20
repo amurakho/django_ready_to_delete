@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <img src="{{ product.productimage_set.all.first.image.url }}">
+
+    <p>Name: {{ product.title }}</p>
+
+    <p>Price: {{ product.price }}</p>
+
+    {% if product.in_stock %}
+        <H3>In stock!</H3>
+    {% else %}
+        <h3>Not in stock</h3>
+    {% endif %}
+
+    <p>Descr: {{ product.description }}</p>
+
+    <p>Code: {{ product.code }}</p>
+    <hr>
+    {% for review in reviews %}
+        Rating: {{ review.rating }}
+        Text: {{ review.text }}
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Comment">
+        </form>
+    {% endif %}
+
+{% endblock %}

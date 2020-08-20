@@ -1,0 +1,18 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+    {%  for product in products %}
+{#        <img src="{{ some_model.image_field.url }}">#}
+        <img src="{{ product.productimage_set.all.first.image.url }}" alt="">
+        <a href="{% url 'product_detail' product.slug %}">Name: {{ product.title }}</a>
+        Price: {{ product.price }}
+        {% if product.in_stock %}
+            <H3>In stock!</H3>
+        {% else %}
+            <h3>Not in stock</h3>
+        {% endif %}
+        <hr>
+    {% endfor %}
+
+{% endblock %}
